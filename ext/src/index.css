@@ -1,0 +1,44 @@
+.popup-chatbox {
+  width: 400px; /* Tăng chiều rộng */
+  height: 500px; /* Tăng chiều cao */
+  display: flex;
+  flex-direction: column; /* Sắp xếp theo chiều dọc */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.chat-messages {
+  flex: 1; /* Chiếm không gian còn lại */
+  overflow-y: auto; /* Cuộn nếu cần */
+  padding: 10px;
+}
+
+.input-area {
+  display: flex;
+  align-items: center; /* Căn giữa các phần tử */
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.input-message {
+  flex: 1; /* Chiếm không gian còn lại */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.send-button {
+  margin-left: 10px;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.send-button:hover {
+  background-color: #0056b3;
+}
