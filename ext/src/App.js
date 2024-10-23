@@ -6,13 +6,14 @@ function App() {
     const [html, setHtml] = useState('');
     const [img, setImg] = useState('');
     const [nw, setNw] = useState('');
+    const [nw2, setNw2] = useState('');
 
     useEffect(() => {
         // Lắng nghe thông điệp từ background.js
         // window.chrome.runtime?.onMessage.addListener((request, sender, sendResponse) => {
         //     if (request.action === "sendSelectedText") {
         //         console.log('dataget',request.text);
-                
+
         //         setSelectedText(request.text); // Cập nhật trạng thái với văn bản đã bôi đen
         //     }
         // });
@@ -22,20 +23,32 @@ function App() {
             if (response.text) {
                 setSelectedText(response.text);
             }
-            if(response.html){
+            if (response.html) {
                 setHtml(response.html)
             }
-            if(response.img){
+            if (response.img) {
                 setImg(response.img)
             }
-            if(response.network){
+            if (response.network) {
                 setNw(response.network)
+            }
+        });
+
+        window.chrome.runtime?.onMessage.addListener(function (message) {
+            if (message.action === "networkRequest") {
+                //   const infoDiv = document.getElementById('network-info');
+                //   infoDiv.innerHTML = `
+                //     <p>URL: ${message.data.url}</p>
+                //     <p>Method: ${message.data.method}</p>
+                //     <p>Request ID: ${message.data.requestId}</p>
+                //   `;
+                setNw2(message.data)
             }
         });
 
     }, []);
 
-    return <Popup selectedText={selectedText} html={html} img={img} network={nw}/>;
+    return <Popup selectedText={selectedText} html={html} img={img} network={nw} network2={nw2} />;
 }
 
 export default App;

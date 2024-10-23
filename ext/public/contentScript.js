@@ -3,6 +3,17 @@ let targetElement = null;
 let flag = false;
 
 
+document.addEventListener('click', function(event) {
+  const target = event.target.closest('a');
+  
+  if (target && target.href) {
+    // Gửi message đến background script với thông tin về URL
+    chrome.runtime.sendMessage({action:'setLastClickedUrl', url: target.href });
+  }
+});
+
+
+
 
 document.addEventListener('mouseup', function (event) {
   // Lấy tọa độ của con trỏ chuột

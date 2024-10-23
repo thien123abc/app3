@@ -5,8 +5,11 @@
   "description": "Highlight text",
   "permissions": [
     "declarativeNetRequest",
+     "declarativeNetRequestWithHostAccess",
+    "declarativeNetRequestFeedback",
     "activeTab",
-    "scripting"
+    "scripting",
+    "webRequest"
   ],
   "background": {
     "service_worker": "background.js"

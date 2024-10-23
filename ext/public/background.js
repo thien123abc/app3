@@ -6,16 +6,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === "showPopup") {
-        sendResponse({ success: true });
-    }
+  
 
     // Xử lý khi có yêu cầu lấy dữ liệu mạng
-    else if (request.action === "getNetworkData") {
+    if (request.action === "getNetworkData") {
         let networkData = [];
 
         // Sử dụng chrome.webRequest để theo dõi tất cả các request đã hoàn thành
-        chrome.webRequest.onCompleted.addListener((details) => {
+        chrome.webRequest?.onCompleted.addListener((details) => {
             // Lưu trữ thông tin của các yêu cầu mạng đã hoàn thành
             networkData.push({
                 url: details.url,
@@ -54,3 +52,32 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     return true; // Giữ kênh kết nối mở
 });
+
+// =====================
+
+
+
+let lastClickedUrl = '';
+
+// Theo dõi tất cả các yêu cầu mạng từ trang mới
+chrome.webRequest.onCompleted.addListener(
+  function(details) {
+    if (details.frameId===0) {
+      // Gửi dữ liệu này đến popup hoặc xử lý tùy ý
+      chrome.runtime.sendMessage({
+        action: "networkRequest",
+        data: {
+            time:details.timeStamp,
+            method:details.method,
+            ip:details.ip,
+            statusCode:details.statusCode
+        }
+      });
+    }
+  },
+  { urls: ["<all_urls>"] }
+);
+
+
+
+
